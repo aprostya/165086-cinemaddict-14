@@ -1,5 +1,8 @@
 import dayjs from 'dayjs';
-import SITE_ELEMENTS_SELECTORS from '../consts';
+import {
+  SITE_ELEMENTS_SELECTORS,
+  USER_RATING
+} from '../consts';
 
 const generateNewArray = (array, item, times) => {
   for (let i = 0; i < times; i++) {
@@ -32,14 +35,14 @@ const getRandomInt = (a = 1, b = 0) => {
 };
 
 const countUserRating = (watchedMovies) => {
-  if(watchedMovies >= 1 && watchedMovies <= 10) {
-    return 'novice';
+  if (watchedMovies >= 1 && watchedMovies <= 10) {
+    return USER_RATING.JUNIOR;
   }
-  if(watchedMovies >= 11 && watchedMovies <=20) {
-    return 'fan';
+  if (watchedMovies >= 11 && watchedMovies <= 20) {
+    return USER_RATING.MIDDLE;
   }
-  if(watchedMovies >= 21) {
-    return 'movie buff';
+  if (watchedMovies >= 21) {
+    return USER_RATING.SENIOR;
   }
 };
 
@@ -69,4 +72,16 @@ const formatTime = (value) => {
   return time;
 };
 
-export {getRandomInt, countUserRating,  openPopup, render, destroyElement, randomDate, formatDate, formatTime, generateRandomValue, getRandom, generateNewArray};
+export {
+  getRandomInt,
+  countUserRating,
+  openPopup,
+  render,
+  destroyElement,
+  randomDate,
+  formatDate,
+  formatTime,
+  generateRandomValue,
+  getRandom,
+  generateNewArray
+};

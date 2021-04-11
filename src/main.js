@@ -1,3 +1,4 @@
-import {renderSiteElements} from './renderSiteElements';
-
+import {
+  renderSiteElements
+} from './renderSiteElements';
 renderSiteElements();

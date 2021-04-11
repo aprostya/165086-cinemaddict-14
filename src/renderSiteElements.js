@@ -1,4 +1,9 @@
 import {
+  openPopup,
+  render
+} from './utils/utils';
+
+import {
   createSiteHeader
 } from './view/header';
 import {
@@ -34,15 +39,12 @@ import {
 } from './view/film-card';
 
 import {
-  openPopup,
-  render
-} from './utils/utils';
-
-import {
   popup
 } from './view/popup/popup';
 
-import SITE_ELEMENTS_SELECTORS from './consts';
+import {
+  SITE_ELEMENTS_SELECTORS
+} from './consts';
 
 export const renderSiteElements = () => {
   const siteBody = document.querySelector(SITE_ELEMENTS_SELECTORS.BODY);
