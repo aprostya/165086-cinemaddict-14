@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import SITE_ELEMENTS_SELECTORS from '../consts';
 
 const generateNewArray = (array, item, times) => {
   for (let i = 0; i < times; i++) {
@@ -55,8 +56,8 @@ const destroyElement = (element) => {
 };
 
 const openPopup = () => {
-  const modal = document.querySelector('.film-details');
-  const closeBtn = document.querySelector('.film-details__close-btn');
+  const modal = document.querySelector(SITE_ELEMENTS_SELECTORS.FILM_POPUP);
+  const closeBtn = document.querySelector(SITE_ELEMENTS_SELECTORS.FILM_POPUP_CLOSE_BTN);
   closeBtn && closeBtn.addEventListener('click', () => destroyElement(modal));
 };
 

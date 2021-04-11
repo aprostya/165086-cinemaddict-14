@@ -7,6 +7,10 @@ const SITE_ELEMENTS_SELECTORS = {
   FILMS_LIST: '.films-list',
   FILMS_LIST_EXTRA: '.films-list--extra',
   FILMS_LIST_CONTAINER: '.films-list__container',
+  FILM_POPUP: '.film-details',
+  FILM_POPUP_CLOSE_BTN: '.film-details__close-btn',
+
+
 };
 
 export default SITE_ELEMENTS_SELECTORS;
