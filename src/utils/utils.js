@@ -37,7 +37,7 @@ const countUserRating = (watchedMovies) => {
   if(watchedMovies >= 11 && watchedMovies <=20) {
     return 'fan';
   }
-  if(watchedMovies > 21) {
+  if(watchedMovies >= 21) {
     return 'movie buff';
   }
 };
