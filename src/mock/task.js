@@ -16,10 +16,6 @@ const countries = ['Austria', 'Belize', 'Bahamas', 'Lithuania', 'Moldova', 'Norw
 const titles = ['Afghanistan Samoa', 'Mister Pickles', 'Ortega Tillman', 'Ortega Bahrain'];
 const genres = ['Drama', 'Comedy', 'Blockbuster', 'Tragedy', 'Horror'];
 
-const data = {
-  films: [],
-};
-
 const comments = () => {
   return {
     id: nanoid(),
@@ -67,17 +63,30 @@ const filmInfo = () => {
       genre: genres,
       description: generateRandomValue(randomDescription),
     },
-    user_details: {
-      watchlist: Boolean(getRandom()),
-      already_watched: Boolean(getRandom()),
-      watching_date: randomDate(),
-      favorite: Boolean(getRandom()),
-    },
     comments: commentsMockArray(),
   };
 };
 
-const filmsMockArray = generateNewArray(data.films, filmInfo, 20);
+const data = {
+  films: [],
+  user_details: {
+    watchlist: Boolean(getRandom()),
+    already_watched: getRandom(1, 10),
+    watching_date: randomDate(),
+    favorite: Boolean(getRandom()),
+  },
+};
+
+const generatedFilmsArray = generateNewArray(data.films, filmInfo, 20);
+const filmsMockArray = {
+  films: generatedFilmsArray,
+  user_details: {
+    watchlist: Boolean(getRandom()),
+    already_watched: getRandom(1, 100),
+    watching_date: randomDate(),
+    favorite: Boolean(getRandom()),
+  },
+};
 
 export {
   filmsMockArray

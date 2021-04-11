@@ -29,7 +29,18 @@ const getRandomInt = (a = 1, b = 0) => {
   const upper = Math.floor(Math.max(a, b));
   return Math.floor(lower + Math.random() * (upper - lower + 1));
 };
-//
+
+const countUserRating = (watchedMovies) => {
+  if(watchedMovies >= 1 && watchedMovies <= 10) {
+    return 'novice';
+  }
+  if(watchedMovies >= 11 && watchedMovies <=20) {
+    return 'fan';
+  }
+  if(watchedMovies > 21) {
+    return 'movie buff';
+  }
+};
 
 const formatDate = (date, format = 'YYYY') => {
   return dayjs(date).format(format);
@@ -57,4 +68,4 @@ const formatTime = (value) => {
   return time;
 };
 
-export {getRandomInt, openPopup, render, destroyElement, randomDate, formatDate, formatTime, generateRandomValue, getRandom, generateNewArray};
+export {getRandomInt, countUserRating,  openPopup, render, destroyElement, randomDate, formatDate, formatTime, generateRandomValue, getRandom, generateNewArray};
