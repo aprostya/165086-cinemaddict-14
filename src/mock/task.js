@@ -42,8 +42,6 @@ const filmInfo = () => {
       isFavorite: Boolean(getRandom()),
       isWatched: Boolean(getRandom()),
       isArchived: Boolean(getRandom()),
-      isTopRated: Boolean(getRandom()),
-      isTopCommented: Boolean(getRandom()),
       writers: [
         'Takeshi Kitano',
         'Morgan Freeman',
