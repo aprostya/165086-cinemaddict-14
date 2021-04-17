@@ -1,6 +1,6 @@
-import {getRandom, formatDate, formatTime} from '../utils/utils';
+import {getRandom, formatDate, formatTime, createElement} from '../utils/utils';
 
-export const createFilmCard = (film) => {
+const createFilmCard = (film) => {
   const {
     film_info: {
       title,
@@ -15,8 +15,6 @@ export const createFilmCard = (film) => {
     },
     comments,
   } = film;
-
-
   return `<article class="film-card">
   <h3 class="film-card__title">${title}</h3>
   <p class="film-card__rating">${rating}</p>
@@ -36,3 +34,27 @@ export const createFilmCard = (film) => {
 </article>
 `;
 };
+
+
+class FilmCardComponent {
+  constructor(films) {
+    this._element = null;
+    this.films = films;
+  }
+  getTemplate() {
+    return createFilmCard(this.films);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export {FilmCardComponent};

@@ -1,7 +1,8 @@
 import dayjs from 'dayjs';
 import {
   SITE_ELEMENTS_SELECTORS,
-  USER_RATING
+  USER_RATING,
+  RENDER_POSITION
 } from '../consts';
 
 const generateNewArray = (array, item, times) => {
@@ -60,8 +61,33 @@ const destroyElement = (element) => {
 
 const openPopup = () => {
   const modal = document.querySelector(SITE_ELEMENTS_SELECTORS.FILM_POPUP);
+  const body = document.querySelector('body');
   const closeBtn = document.querySelector(SITE_ELEMENTS_SELECTORS.FILM_POPUP_CLOSE_BTN);
-  closeBtn && closeBtn.addEventListener('click', () => destroyElement(modal));
+  closeBtn && closeBtn.addEventListener('click', () => {
+    body.classList.remove('hide-overflow');
+    destroyElement(modal);
+  });
+};
+
+const renderElement = (container, element, place) => {
+  switch (place) {
+    case RENDER_POSITION.AFTER_BEGIN:
+      container.prepend(element);
+      break;
+    case RENDER_POSITION.BEFORE_END:
+      container.append(element);
+      break;
+  }
+};
+
+const renderTemplate = (container, template, place) => {
+  container && container.insertAdjacentHTML(place, template);
+};
+
+const createElement = (template) => {
+  const newElement = document.createElement('div');
+  newElement.innerHTML = template;
+  return newElement.firstChild;
 };
 
 const formatTime = (value) => {
@@ -79,6 +105,9 @@ export {
   render,
   destroyElement,
   randomDate,
+  renderElement,
+  renderTemplate,
+  createElement,
   formatDate,
   formatTime,
   generateRandomValue,
