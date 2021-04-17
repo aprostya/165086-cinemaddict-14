@@ -11,6 +11,11 @@ const SITE_ELEMENTS_SELECTORS = {
   FILM_POPUP_CLOSE_BTN: '.film-details__close-btn',
 };
 
+const RENDER_POSITION = {
+  AFTER_BEGIN : 'afterbegin',
+  BEFORE_END: 'beforeend',
+};
+
 const USER_RATING = {
   JUNIOR: 'novice',
   MIDDLE: 'fan',
@@ -19,5 +24,6 @@ const USER_RATING = {
 
 export {
   SITE_ELEMENTS_SELECTORS,
-  USER_RATING
+  USER_RATING,
+  RENDER_POSITION
 };
