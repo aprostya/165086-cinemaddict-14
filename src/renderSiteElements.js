@@ -1,50 +1,50 @@
 import {
-  openPopup,
-  render
+  openPopup
 } from './utils/utils';
-
 import {
-  createSiteHeader
-} from './view/header';
-import {
-  createSiteFooter
+  FooterComponent
 } from './view/footer';
 import {
-  createMainNavigation
+  MainNavigation
 } from './view/main-navigation';
 import {
-  createSortFilters
+  HeaderComponent
+} from './view/header';
+import {
+  SortFilmsComponent
 } from './view/filters-sort';
 import {
-  createFooterStatistics
+  FooterStatistics
 } from './view/footer-statistics';
 import {
-  createHeaderProfileRating
+  HeaderProfileRating
 } from './view/header-profile-rating';
 import {
-  createFilmsContainer
+  FilmsContainer
 } from './view/films-container';
 import {
-  createFilmsList
+  FilmsListComponent
 } from './view/films-list';
-
+import {
+  renderElement
+} from './utils/utils';
 import {generateFilter} from '../src/utils/filters';
-
 import {
   filmsMockArray
 } from '../src/mock/task';
 import {
-  createShowMoreBtn
+  ShowMoreButton
 } from './view/show-more-btn';
 import {
-  createFilmCard
+  FilmCardComponent
 } from './view/film-card';
 
 import {
-  popup
+  Popup
 } from './view/popup/popup';
 
 import {
+  RENDER_POSITION,
   SITE_ELEMENTS_SELECTORS
 } from './consts';
 
@@ -53,42 +53,44 @@ export const renderSiteElements = () => {
   const siteBody = document.querySelector(SITE_ELEMENTS_SELECTORS.BODY);
   const siteMainElement = document.querySelector(SITE_ELEMENTS_SELECTORS.MAIN);
   const isMovieExtra = true;
+  const generateFilmFilters = generateFilter(filmsMockArray.films);
+  renderElement(siteBody, new HeaderComponent().getElement(), RENDER_POSITION.AFTER_BEGIN);
+  renderElement(siteBody, new FooterComponent().getElement(),  RENDER_POSITION.BEFORE_END);
   const siteFooter = document.querySelector(SITE_ELEMENTS_SELECTORS.FOOTER);
-  render(siteFooter, createFooterStatistics(), 'beforeend');
-  render(siteBody, createSiteHeader(), 'afterbegin');
-  render(siteBody, createSiteFooter(), 'beforeend');
-  render(siteMainElement, createMainNavigation(generateFilter(filmsMockArray.films)), 'afterbegin');
-  render(siteMainElement, createSortFilters(), 'beforeend');
-  render(siteMainElement, createFilmsContainer(), 'beforeend');
+  renderElement(siteFooter, new FooterStatistics().getElement(), RENDER_POSITION.BEFORE_END);
+  renderElement(siteMainElement, new MainNavigation(generateFilmFilters).getElement(), RENDER_POSITION.AFTER_BEGIN);
+  renderElement(siteMainElement, new SortFilmsComponent().getElement(), RENDER_POSITION.BEFORE_END);
+  renderElement(siteMainElement, new FilmsContainer().getElement(), RENDER_POSITION.BEFORE_END);
   const siteHeader = document.querySelector('.header');
-  render(siteHeader, createHeaderProfileRating(filmsMockArray.user_details.already_watched), 'beforeend');
+  renderElement(siteHeader, new HeaderProfileRating(filmsMockArray.user_details.already_watched).getElement(), RENDER_POSITION.BEFORE_END);
   const siteFilms = document.querySelector(SITE_ELEMENTS_SELECTORS.FILMS);
-  render(siteFilms, createFilmsList(!isMovieExtra, 'All movies. Upcoming'), 'beforeend');
+  renderElement(siteFilms, new FilmsListComponent(!isMovieExtra, 'All movies. Upcoming', '').getElement(), RENDER_POSITION.BEFORE_END);
   const TASK_COUNT_PER_STEP = 5;
   const siteFilmsListContainer = siteFilms.querySelector(SITE_ELEMENTS_SELECTORS.FILMS_LIST_CONTAINER);
   const siteFilmsList = siteFilms.querySelector(SITE_ELEMENTS_SELECTORS.FILMS_LIST);
   // логика рендера и открытия попапа и отрисовка данных для карточки фильма
   for (let i = 0; i < Math.min(filmsMockArray.films.length, TASK_COUNT_PER_STEP); i++) {
-    const filmCard = createFilmCard(filmsMockArray.films[i]);
-    render(siteFilmsListContainer, filmCard, 'afterbegin');
+    const filmCard = new FilmCardComponent(filmsMockArray.films[i]).getElement();
+    renderElement(siteFilmsListContainer, filmCard, 'afterbegin');
     const renderPopup = () => {
-      render(siteBody, popup(filmsMockArray.films[i]), 'beforeend');
+      siteBody.classList.add('hide-overflow');
+      renderElement(siteBody, new Popup(filmsMockArray.films[i]).getElement(), RENDER_POSITION.BEFORE_END);
     };
     const createdFilmCard = document.querySelector('.film-card');
-    createdFilmCard.addEventListener('click', () => {
+    createdFilmCard && createdFilmCard.addEventListener('click', () => {
       openPopup(renderPopup());
     });
   }
   //логика показа фильмов для кнопки loadMoreButton
   if (filmsMockArray.films.length > TASK_COUNT_PER_STEP) {
     let renderedTaskCount = TASK_COUNT_PER_STEP;
-    render(siteFilmsList, createShowMoreBtn(), 'beforeend');
-    const loadMoreButton = siteFilmsList.querySelector('.films-list__show-more');
-    loadMoreButton.addEventListener('click', (evt) => {
+    renderElement(siteFilmsList, new ShowMoreButton().getElement(), RENDER_POSITION.BEFORE_END);
+    const loadMoreButton = siteFilmsList && siteFilmsList.querySelector('.films-list__show-more');
+    loadMoreButton && loadMoreButton.addEventListener('click', (evt) => {
       evt.preventDefault();
       filmsMockArray.films
         .slice(renderedTaskCount, renderedTaskCount + TASK_COUNT_PER_STEP)
-        .forEach((task) => render(siteFilmsListContainer, createFilmCard(task), 'beforeend'));
+        .forEach((task) => renderElement(siteFilmsListContainer, new FilmCardComponent(task).getElement(), RENDER_POSITION.BEFORE_END));
 
       renderedTaskCount += TASK_COUNT_PER_STEP;
 
@@ -123,19 +125,19 @@ export const renderSiteElements = () => {
   const topCommentedFilms = filmsMockArray.films.sort(compareTotalComments).slice(0, 2);
   //todo стоит ли ифы для topRatedFilms и topCommentedFilms объединять в одну функцию?
   if (topRatedFilms.length > 0) {
-    render(siteFilms, createFilmsList(isMovieExtra, 'Top rated', 'film-list--top-rated'), 'beforeend');
+    renderElement(siteFilms, new FilmsListComponent(isMovieExtra, 'Top rated', 'film-list--top-rated').getElement(), RENDER_POSITION.BEFORE_END);
     for (let i = 0; i < topRatedFilms.length; i++) {
       const topRatedBlock = document.querySelector('.film-list--top-rated');
       const topRatedBlockContainer = topRatedBlock.querySelector(SITE_ELEMENTS_SELECTORS.FILMS_LIST_CONTAINER);
-      render(topRatedBlockContainer, createFilmCard(topRatedFilms[i]), 'beforeend');
+      renderElement(topRatedBlockContainer, new FilmCardComponent(topRatedFilms[i]).getElement(), RENDER_POSITION.BEFORE_END);
     }
   }
   if (topCommentedFilms.length > 0) {
-    render(siteFilms, createFilmsList(isMovieExtra, 'Most commented', 'film-list--top-commented'), 'beforeend');
+    renderElement(siteFilms, new FilmsListComponent(isMovieExtra, 'Most commented', 'film-list--top-commented').getElement(), RENDER_POSITION.BEFORE_END);
     for (let i = 0; i < topRatedFilms.length; i++) {
       const topCommentedBlock = document.querySelector('.film-list--top-commented');
       const topCommentedBlockContainer = topCommentedBlock.querySelector(SITE_ELEMENTS_SELECTORS.FILMS_LIST_CONTAINER);
-      render(topCommentedBlockContainer, createFilmCard(topCommentedFilms[i]), 'beforeend');
+      renderElement(topCommentedBlockContainer, new FilmCardComponent(topCommentedFilms[i]).getElement(), RENDER_POSITION.BEFORE_END);
     }
   }
 };

@@ -4,9 +4,9 @@ import {
 import {
   popupControls
 } from './fim-details-controls';
-import {formatDate, formatTime} from '../../utils/utils';
+import {formatDate, formatTime, createElement} from '../../utils/utils';
 
-export const popup = (film) => {
+const createPopup = (film) => {
   const {
     film_info: {
       title,
@@ -92,3 +92,27 @@ export const popup = (film) => {
   </form>
 </section>`;
 };
+
+class Popup {
+  constructor(film) {
+    this._element = null;
+    this.film = film;
+  }
+  getTemplate() {
+    return createPopup(this.film);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export {Popup};
+
