@@ -93,8 +93,8 @@ const createElement = (template) => {
 const closePopup = () => {
   const modal = document.querySelector(SITE_ELEMENTS_SELECTORS.FILM_POPUP);
   const closeBtn = document.querySelector(SITE_ELEMENTS_SELECTORS.FILM_POPUP_CLOSE_BTN);
-  window.onkeydown = (event ) => {
-    if (event.keyCode == 27 ) {
+  window.onkeydown = (event) => {
+    if (event.keyCode == 27) {
       removeBodyScroll();
       destroyElement(modal);
     }
