@@ -26,7 +26,8 @@ import {
   FilmsListComponent
 } from './view/films-list';
 import {
-  renderElement
+  renderElement,
+  isElementExist
 } from './utils/utils';
 import {
   generateFilter
@@ -72,22 +73,22 @@ export const renderSiteElements = () => {
     const totalFilms = filmsMockArray.films;
     const filmCard = new FilmCardComponent(totalFilms[i]).getElement();
     renderElement(siteFilmsListContainer, filmCard, RENDER_POSITION.AFTER_BEGIN);
-    filmCard && filmCard.addEventListener('click', () => openPopup(filmCard, filmsMockArray.films));
+    isElementExist(filmCard).addEventListener('click', () => openPopup(filmCard, filmsMockArray.films));
   }
 
   //логика показа фильмов для кнопки loadMoreButton
   if (filmsCount > TASK_COUNT_PER_STEP) {
     let renderedTaskCount = TASK_COUNT_PER_STEP;
     renderElement(siteFilmsList, new ShowMoreButton().getElement());
-    const loadMoreButton = siteFilmsList && siteFilmsList.querySelector('.films-list__show-more');
-    loadMoreButton && loadMoreButton.addEventListener('click', (event) => {
+    const loadMoreButton =  isElementExist(siteFilmsList).querySelector('.films-list__show-more');
+    isElementExist(loadMoreButton).addEventListener('click', (event) => {
       event.preventDefault();
       filmsMockArray.films
         .slice(renderedTaskCount, renderedTaskCount + TASK_COUNT_PER_STEP)
         .forEach((task) => {
           const filmCard = new FilmCardComponent(task).getElement();
           renderElement(siteFilmsListContainer, filmCard);
-          filmCard && filmCard.addEventListener('click', () => openPopup(filmCard, filmsMockArray.films));
+          isElementExist(filmCard).addEventListener('click', () => openPopup(filmCard, filmsMockArray.films));
         });
 
       renderedTaskCount += TASK_COUNT_PER_STEP;
@@ -126,7 +127,7 @@ export const renderSiteElements = () => {
       const topRatedBlockContainer = topRatedBlock.querySelector(SITE_ELEMENTS_SELECTORS.FILMS_LIST_CONTAINER);
       const filmCardTopRated = new FilmCardComponent(topRatedFilms[i]).getElement();
       renderElement(topRatedBlockContainer, filmCardTopRated);
-      filmCardTopRated && filmCardTopRated.addEventListener('click', () => openPopup(filmCardTopRated, filmsMockArray.films));
+      isElementExist(filmCardTopRated).addEventListener('click', () => openPopup(filmCardTopRated, filmsMockArray.films));
     }
   }
   if (topCommentedFilms.length > 0) {
@@ -136,7 +137,7 @@ export const renderSiteElements = () => {
       const filmCardTopCommented = new FilmCardComponent(topCommentedFilms[i]).getElement();
       const topCommentedBlockContainer = topCommentedBlock.querySelector(SITE_ELEMENTS_SELECTORS.FILMS_LIST_CONTAINER);
       renderElement(topCommentedBlockContainer, filmCardTopCommented);
-      filmCardTopCommented && filmCardTopCommented.addEventListener('click', () => openPopup(filmCardTopCommented, filmsMockArray.films));
+      isElementExist(filmCardTopCommented).addEventListener('click', () => openPopup(filmCardTopCommented, filmsMockArray.films));
     }
   }
 };

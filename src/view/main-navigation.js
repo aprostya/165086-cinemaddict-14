@@ -1,5 +1,6 @@
 import {
-  createElement
+  createElement,
+  isElementExist
 } from '../utils/utils';
 
 const createSiteMenuTemplate = (filteredFilms) => {
@@ -18,9 +19,9 @@ const createSiteMenuTemplate = (filteredFilms) => {
   return `<nav class="main-navigation">
  <div class="main-navigation__items">
     <a href="#all" class="main-navigation__item main-navigation__item--active">All movies</a>
-    <a href="#watchList" class="main-navigation__item">WatchList ${watchListFilmsCount && watchListFilmsCount > 0 ? `<span class="main-navigation__item-count">${watchListFilmsCount}</span>` : ''}</a>
-     <a href="#history" class="main-navigation__item">History ${historyFilmsCount && historyFilmsCount > 0 ? `<span class="main-navigation__item-count">${historyFilmsCount}</span>` : ''}</a>
-   <a href="#favorites" class="main-navigation__item">Favorites ${favoriteFilmsCount && favoriteFilmsCount > 0 ? `<span class="main-navigation__item-count">${favoriteFilmsCount}</span>` : ''}</a>
+    <a href="#watchList" class="main-navigation__item">WatchList ${isElementExist(watchListFilmsCount) > 0 ? `<span class="main-navigation__item-count">${watchListFilmsCount}</span>` : ''}</a>
+     <a href="#history" class="main-navigation__item">History ${isElementExist(historyFilmsCount) > 0 ? `<span class="main-navigation__item-count">${historyFilmsCount}</span>` : ''}</a>
+   <a href="#favorites" class="main-navigation__item">Favorites ${isElementExist(favoriteFilmsCount) > 0 ? `<span class="main-navigation__item-count">${favoriteFilmsCount}</span>` : ''}</a>
   </div>
    <a href="#stats" class="main-navigation__additional">Stats</a>
  </nav>`;

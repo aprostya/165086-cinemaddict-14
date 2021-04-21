@@ -56,16 +56,24 @@ const formatDate = (date, format = 'YYYY') => {
 };
 
 const render = (container, template, place) => {
-  container && container.insertAdjacentHTML(place, template);
+  isElementExist(container).insertAdjacentHTML(place, template);
 };
 
 const destroyElement = (element) => {
   element.remove();
 };
 
+const isElementExist = (element) => {
+  if(element) {
+    return element;
+  } else {
+    return null;
+  }
+};
+
 const removeBodyScroll = () => {
   const body = document.querySelector('body');
-  body && body.classList.remove('hide-overflow');
+  isElementExist(body).classList.remove('hide-overflow');
 };
 
 
@@ -81,7 +89,7 @@ const renderElement = (container, element, place = RENDER_POSITION.BEFORE_END) =
 };
 
 const renderTemplate = (container, template, place) => {
-  container && container.insertAdjacentHTML(place, template);
+  isElementExist(container).insertAdjacentHTML(place, template);
 };
 
 const createElement = (template) => {
@@ -94,12 +102,12 @@ const closePopup = () => {
   const modal = document.querySelector(SITE_ELEMENTS_SELECTORS.FILM_POPUP);
   const closeBtn = document.querySelector(SITE_ELEMENTS_SELECTORS.FILM_POPUP_CLOSE_BTN);
   window.onkeydown = (event) => {
-    if (event.keyCode == 27) {
+    if (event.keyCode === 27) {
       removeBodyScroll();
       destroyElement(modal);
     }
   };
-  closeBtn && closeBtn.addEventListener('click', () => {
+  isElementExist(closeBtn).addEventListener('click', () => {
     removeBodyScroll();
     destroyElement(modal);
   });
@@ -139,6 +147,7 @@ export {
   createElement,
   formatDate,
   formatTime,
+  isElementExist,
   generateRandomValue,
   getRandom,
   openPopup,
