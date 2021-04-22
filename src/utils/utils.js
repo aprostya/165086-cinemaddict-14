@@ -5,6 +5,10 @@ import {
   RENDER_POSITION
 } from '../consts';
 
+import {
+  Popup
+} from '../view/popup/popup';
+
 const generateNewArray = (array, item, times) => {
   for (let i = 0; i < times; i++) {
     array.push(item());
@@ -52,24 +56,28 @@ const formatDate = (date, format = 'YYYY') => {
 };
 
 const render = (container, template, place) => {
-  container && container.insertAdjacentHTML(place, template);
+  isElementExist(container).insertAdjacentHTML(place, template);
 };
 
 const destroyElement = (element) => {
   element.remove();
 };
 
-const openPopup = () => {
-  const modal = document.querySelector(SITE_ELEMENTS_SELECTORS.FILM_POPUP);
-  const body = document.querySelector('body');
-  const closeBtn = document.querySelector(SITE_ELEMENTS_SELECTORS.FILM_POPUP_CLOSE_BTN);
-  closeBtn && closeBtn.addEventListener('click', () => {
-    body.classList.remove('hide-overflow');
-    destroyElement(modal);
-  });
+const isElementExist = (element) => {
+  if(element) {
+    return element;
+  } else {
+    return null;
+  }
 };
 
-const renderElement = (container, element, place) => {
+const removeBodyScroll = () => {
+  const body = document.querySelector('body');
+  isElementExist(body).classList.remove('hide-overflow');
+};
+
+
+const renderElement = (container, element, place = RENDER_POSITION.BEFORE_END) => {
   switch (place) {
     case RENDER_POSITION.AFTER_BEGIN:
       container.prepend(element);
@@ -81,13 +89,42 @@ const renderElement = (container, element, place) => {
 };
 
 const renderTemplate = (container, template, place) => {
-  container && container.insertAdjacentHTML(place, template);
+  isElementExist(container).insertAdjacentHTML(place, template);
 };
 
 const createElement = (template) => {
   const newElement = document.createElement('div');
   newElement.innerHTML = template;
   return newElement.firstChild;
+};
+
+const closePopup = () => {
+  const modal = document.querySelector(SITE_ELEMENTS_SELECTORS.FILM_POPUP);
+  const closeBtn = document.querySelector(SITE_ELEMENTS_SELECTORS.FILM_POPUP_CLOSE_BTN);
+  window.onkeydown = (event) => {
+    if (event.keyCode === 27) {
+      removeBodyScroll();
+      destroyElement(modal);
+    }
+  };
+  isElementExist(closeBtn).addEventListener('click', () => {
+    removeBodyScroll();
+    destroyElement(modal);
+  });
+};
+
+const openPopup = (card, films) => {
+  const renderPopup = (film) => {
+    const siteBody = document.querySelector(SITE_ELEMENTS_SELECTORS.BODY);
+    siteBody.classList.add('hide-overflow');
+    renderElement(siteBody, new Popup(film).getElement(), RENDER_POSITION.BEFORE_END);
+    closePopup();
+  };
+  const filmCardId = card.getAttribute('id');
+  const filteredElement = films.filter((item) => {
+    return item.id === filmCardId;
+  });
+  renderPopup(filteredElement[0]);
 };
 
 const formatTime = (value) => {
@@ -101,7 +138,7 @@ const formatTime = (value) => {
 export {
   getRandomInt,
   countUserRating,
-  openPopup,
+  closePopup,
   render,
   destroyElement,
   randomDate,
@@ -110,7 +147,9 @@ export {
   createElement,
   formatDate,
   formatTime,
+  isElementExist,
   generateRandomValue,
   getRandom,
+  openPopup,
   generateNewArray
 };

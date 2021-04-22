@@ -2,6 +2,7 @@ import {getRandom, formatDate, formatTime, createElement} from '../utils/utils';
 
 const createFilmCard = (film) => {
   const {
+    id,
     film_info: {
       title,
       description,
@@ -15,7 +16,7 @@ const createFilmCard = (film) => {
     },
     comments,
   } = film;
-  return `<article class="film-card">
+  return `<article class="film-card" id=${id}>
   <h3 class="film-card__title">${title}</h3>
   <p class="film-card__rating">${rating}</p>
   <p class="film-card__info">

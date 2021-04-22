@@ -2,18 +2,20 @@ import {
   createElement
 } from '../utils/utils';
 
-export const createFooterStatistics = () => {
+export const createFooterStatistics = (totalFilms) => {
+  const showTotalFilms = totalFilms > 0 ? `${totalFilms} movies inside`:'';
   return `<section class="footer__statistics">
-  <p>130 291 movies inside</p>
+  <p>${showTotalFilms}</p>
 </section>`;
 };
 
 class FooterStatistics {
-  constructor() {
+  constructor(totalFilms) {
     this._element = null;
+    this.totalFilms = totalFilms;
   }
   getTemplate() {
-    return createFooterStatistics();
+    return createFooterStatistics(this.totalFilms);
   }
 
   getElement() {

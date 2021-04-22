@@ -13,7 +13,7 @@ const randomImage = ['sagebrush-trail.jpg', 'santa-claus-conquers-the-martians.j
 const comment = ['disgusting', 'coool movie', 'fdsfsdf', 'ewrewrewr', 'rerewrewrewr'];
 const names = ['Hernandez Drake', 'Duffy Velez', 'Ortega OsMan', 'Ocean Territory'];
 const countries = ['Austria', 'Belize', 'Bahamas', 'Lithuania', 'Moldova', 'Norway'];
-const titles = ['Afghanistan Samoa', 'Mister Pickles', 'Ortega Tillman', 'Ortega Bahrain'];
+const titles = ['Simpsons', 'Mister Pickles', 'Avengers', 'Johnny Mnemonic', 'Game of thrones'];
 const genres = ['Drama', 'Comedy', 'Blockbuster', 'Tragedy', 'Horror'];
 
 const comments = () => {
