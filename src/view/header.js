@@ -1,6 +1,3 @@
-import {
-  createElement
-} from '../utils/utils';
 import AbstractView from './abstract';
 
 const createSiteHeader = () => {

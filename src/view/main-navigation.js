@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import AbstractView from './abstract';
 
 const createSiteMenuTemplate = (filteredFilms) => {
