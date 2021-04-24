@@ -1,4 +1,7 @@
-import {countUserRating, createElement} from '../utils/utils';
+import {
+  countUserRating
+} from '../utils/utils';
+import AbstractView from './abstract';
 
 const createHeaderProfileRating = (countedFilms) => {
   return `<section class="header__profile profile">
@@ -7,25 +10,16 @@ const createHeaderProfileRating = (countedFilms) => {
 </section>`;
 };
 
-class HeaderProfileRating {
+class HeaderProfileRating extends AbstractView {
   constructor(userFilms) {
-    this._element = null;
+    super();
     this.userFilms = userFilms;
   }
   getTemplate() {
     return createHeaderProfileRating(this.userFilms);
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
 
-export {HeaderProfileRating};
+export {
+  HeaderProfileRating
+};

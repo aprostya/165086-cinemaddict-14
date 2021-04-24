@@ -55,25 +55,18 @@ const formatDate = (date, format = 'YYYY') => {
   return dayjs(date).format(format);
 };
 
+
 const render = (container, template, place) => {
-  isElementExist(container).insertAdjacentHTML(place, template);
+  container.insertAdjacentHTML(place, template);
 };
 
 const destroyElement = (element) => {
   element.remove();
 };
 
-const isElementExist = (element) => {
-  if(element) {
-    return element;
-  } else {
-    return null;
-  }
-};
-
 const removeBodyScroll = () => {
   const body = document.querySelector('body');
-  isElementExist(body).classList.remove('hide-overflow');
+  body.classList.remove('hide-overflow');
 };
 
 
@@ -89,7 +82,7 @@ const renderElement = (container, element, place = RENDER_POSITION.BEFORE_END) =
 };
 
 const renderTemplate = (container, template, place) => {
-  isElementExist(container).insertAdjacentHTML(place, template);
+  container.insertAdjacentHTML(place, template);
 };
 
 const createElement = (template) => {
@@ -107,7 +100,7 @@ const closePopup = () => {
       destroyElement(modal);
     }
   };
-  isElementExist(closeBtn).addEventListener('click', () => {
+  closeBtn.addEventListener('click', () => {
     removeBodyScroll();
     destroyElement(modal);
   });
@@ -147,7 +140,6 @@ export {
   createElement,
   formatDate,
   formatTime,
-  isElementExist,
   generateRandomValue,
   getRandom,
   openPopup,

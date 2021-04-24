@@ -4,7 +4,11 @@ import {
 import {
   popupControls
 } from './fim-details-controls';
-import {formatDate, formatTime, createElement} from '../../utils/utils';
+import {
+  formatDate,
+  formatTime
+} from '../../utils/utils';
+import AbstractView from '../abstract';
 
 const createPopup = (film) => {
   const {
@@ -93,26 +97,16 @@ const createPopup = (film) => {
 </section>`;
 };
 
-class Popup {
+class Popup extends AbstractView {
   constructor(film) {
-    this._element = null;
+    super();
     this.film = film;
   }
   getTemplate() {
     return createPopup(this.film);
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
 
-export {Popup};
-
+export {
+  Popup
+};
