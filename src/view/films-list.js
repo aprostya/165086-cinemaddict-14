@@ -1,7 +1,7 @@
-import {createElement} from '../utils/utils';
+import AbstractView from './abstract';
 
 const createFilmsList = (isFilmExtra, movieTitle, filmListType, totalFilms) => {
-  const filmsTitle = totalFilms > 0  ? `${movieTitle}` : 'There are no movies in our database';
+  const filmsTitle = totalFilms > 0 ? `${movieTitle}` : 'There are no movies in our database';
   const isTitleHidden = isFilmExtra || totalFilms <= 0;
   const isExtraTitle = isFilmExtra ? 'films-list--extra' : '';
   return `<section class="films-list ${isExtraTitle} ${filmListType ? `${filmListType}` : ''}">
@@ -11,9 +11,9 @@ const createFilmsList = (isFilmExtra, movieTitle, filmListType, totalFilms) => {
 </section>`;
 };
 
-class FilmsListComponent {
+class FilmsListComponent extends AbstractView {
   constructor(isFilmExtra, movieTitle, filmListType, totalFilms) {
-    this._element = null;
+    super();
     this.isFilmExtra = isFilmExtra;
     this.movieTitle = movieTitle;
     this.filmListType = filmListType;
@@ -22,18 +22,8 @@ class FilmsListComponent {
   getTemplate() {
     return createFilmsList(this.isFilmExtra, this.movieTitle, this.filmListType, this.totalFilms);
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
 
-export {FilmsListComponent};
-
+export {
+  FilmsListComponent
+};

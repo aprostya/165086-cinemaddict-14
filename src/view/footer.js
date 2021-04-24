@@ -1,6 +1,5 @@
-import {
-  createElement
-} from '../utils/utils';
+import AbstractView from './abstract';
+
 
 export const createSiteFooter = () => {
   return `<footer class="footer">
@@ -8,24 +7,16 @@ export const createSiteFooter = () => {
 </footer>`;
 };
 
-class FooterComponent {
+class FooterComponent extends AbstractView {
   constructor() {
-    this._element = null;
+    super();
   }
   getTemplate() {
     return createSiteFooter();
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
 
-export {FooterComponent};
+export {
+  FooterComponent
+};

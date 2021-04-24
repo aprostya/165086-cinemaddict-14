@@ -79,10 +79,9 @@ export const renderSiteElements = () => {
   //логика показа фильмов для кнопки loadMoreButton
   if (filmsCount > TASK_COUNT_PER_STEP) {
     let renderedTaskCount = TASK_COUNT_PER_STEP;
-    renderElement(siteFilmsList, new ShowMoreButton().getElement());
-    const loadMoreButton =  isElementExist(siteFilmsList).querySelector('.films-list__show-more');
-    isElementExist(loadMoreButton).addEventListener('click', (event) => {
-      event.preventDefault();
+    const loadMoreButtonComponent = new ShowMoreButton();
+    renderElement(siteFilmsList, loadMoreButtonComponent.getElement());
+    loadMoreButtonComponent.setClickHandler(() => {
       filmsMockArray.films
         .slice(renderedTaskCount, renderedTaskCount + TASK_COUNT_PER_STEP)
         .forEach((task) => {
@@ -93,6 +92,9 @@ export const renderSiteElements = () => {
 
       renderedTaskCount += TASK_COUNT_PER_STEP;
       if (renderedTaskCount >= filmsCount) {
+        const loadMoreButton = document.querySelector('.films-list__show-more');
+        //todo как переписать на removeElement?
+        //loadMoreButtonComponent.removeElement() - не работает
         loadMoreButton.remove();
       }
     });
@@ -125,7 +127,8 @@ export const renderSiteElements = () => {
     for (let i = 0; i < topRatedFilms.length; i++) {
       const topRatedBlock = document.querySelector('.film-list--top-rated');
       const topRatedBlockContainer = topRatedBlock.querySelector(SITE_ELEMENTS_SELECTORS.FILMS_LIST_CONTAINER);
-      const filmCardTopRated = new FilmCardComponent(topRatedFilms[i]).getElement();
+      const filmCardTopRatedComponent = new FilmCardComponent(topRatedFilms[i]);
+      const filmCardTopRated = filmCardTopRatedComponent.getElement();
       renderElement(topRatedBlockContainer, filmCardTopRated);
       isElementExist(filmCardTopRated).addEventListener('click', () => openPopup(filmCardTopRated, filmsMockArray.films));
     }

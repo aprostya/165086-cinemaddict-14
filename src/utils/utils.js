@@ -55,15 +55,7 @@ const formatDate = (date, format = 'YYYY') => {
   return dayjs(date).format(format);
 };
 
-const render = (container, template, place) => {
-  isElementExist(container).insertAdjacentHTML(place, template);
-};
-
-const destroyElement = (element) => {
-  element.remove();
-};
-
-const isElementExist = (element) => {
+const checkElementExistance = (element) => {
   if(element) {
     return element;
   } else {
@@ -71,9 +63,17 @@ const isElementExist = (element) => {
   }
 };
 
+const render = (container, template, place) => {
+  checkElementExistance(container).insertAdjacentHTML(place, template);
+};
+
+const destroyElement = (element) => {
+  element.remove();
+};
+
 const removeBodyScroll = () => {
   const body = document.querySelector('body');
-  isElementExist(body).classList.remove('hide-overflow');
+  checkElementExistance(body).classList.remove('hide-overflow');
 };
 
 
@@ -89,7 +89,7 @@ const renderElement = (container, element, place = RENDER_POSITION.BEFORE_END) =
 };
 
 const renderTemplate = (container, template, place) => {
-  isElementExist(container).insertAdjacentHTML(place, template);
+  checkElementExistance(container).insertAdjacentHTML(place, template);
 };
 
 const createElement = (template) => {
@@ -107,7 +107,7 @@ const closePopup = () => {
       destroyElement(modal);
     }
   };
-  isElementExist(closeBtn).addEventListener('click', () => {
+  checkElementExistance(closeBtn).addEventListener('click', () => {
     removeBodyScroll();
     destroyElement(modal);
   });
@@ -147,7 +147,7 @@ export {
   createElement,
   formatDate,
   formatTime,
-  isElementExist,
+  checkElementExistance as isElementExist,
   generateRandomValue,
   getRandom,
   openPopup,

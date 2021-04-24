@@ -1,33 +1,22 @@
-import {
-  createElement
-} from '../utils/utils';
+import AbstractView from './abstract';
 
 export const createFooterStatistics = (totalFilms) => {
-  const showTotalFilms = totalFilms > 0 ? `${totalFilms} movies inside`:'';
+  const showTotalFilms = totalFilms > 0 ? `${totalFilms} movies inside` : '';
   return `<section class="footer__statistics">
   <p>${showTotalFilms}</p>
 </section>`;
 };
 
-class FooterStatistics {
+class FooterStatistics extends AbstractView {
   constructor(totalFilms) {
-    this._element = null;
+    super();
     this.totalFilms = totalFilms;
   }
   getTemplate() {
     return createFooterStatistics(this.totalFilms);
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
 
-export{FooterStatistics};
+export {
+  FooterStatistics
+};

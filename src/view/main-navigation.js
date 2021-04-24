@@ -1,7 +1,7 @@
 import {
-  createElement,
   isElementExist
 } from '../utils/utils';
+import AbstractView from './abstract';
 
 const createSiteMenuTemplate = (filteredFilms) => {
   const findFavoriteFilter = filteredFilms.find((filter) => filter.name === 'favorites');
@@ -27,26 +27,16 @@ const createSiteMenuTemplate = (filteredFilms) => {
  </nav>`;
 };
 
-class MainNavigation {
+class MainNavigation extends AbstractView {
   constructor(films) {
-    this._element = null;
+    super();
     this.films = films;
   }
   getTemplate() {
     return createSiteMenuTemplate(this.films);
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
 
-export {MainNavigation};
-
+export {
+  MainNavigation
+};

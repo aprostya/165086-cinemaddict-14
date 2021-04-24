@@ -1,30 +1,19 @@
-import {
-  createElement
-} from '../utils/utils';
+import AbstractView from './abstract';
 
 export const createFilmsContainer = () => {
   return `<section class="films">
 </section>`;
 };
 
-class FilmsContainer {
+class FilmsContainer extends AbstractView {
   constructor() {
-    this._element = null;
+    super();
   }
   getTemplate() {
     return createFilmsContainer();
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
 
-export{FilmsContainer};
+export {
+  FilmsContainer
+};
