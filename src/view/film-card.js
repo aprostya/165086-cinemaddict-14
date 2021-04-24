@@ -1,4 +1,9 @@
-import {getRandom, formatDate, formatTime, createElement} from '../utils/utils';
+import {
+  getRandom,
+  formatDate,
+  formatTime
+} from '../utils/utils';
+import AbstractView from './abstract';
 
 const createFilmCard = (film) => {
   const {
@@ -37,25 +42,16 @@ const createFilmCard = (film) => {
 };
 
 
-class FilmCardComponent {
+class FilmCardComponent extends AbstractView {
   constructor(films) {
-    this._element = null;
+    super();
     this.films = films;
   }
   getTemplate() {
     return createFilmCard(this.films);
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
 
-export {FilmCardComponent};
+export {
+  FilmCardComponent
+};

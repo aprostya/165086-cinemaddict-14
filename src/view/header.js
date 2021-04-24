@@ -1,6 +1,7 @@
 import {
   createElement
 } from '../utils/utils';
+import AbstractView from './abstract';
 
 const createSiteHeader = () => {
   return `<header class="header">
@@ -8,26 +9,15 @@ const createSiteHeader = () => {
 </header>`;
 };
 
-class HeaderComponent {
+class HeaderComponent extends AbstractView {
   constructor() {
-    this._element = null;
+    super();
   }
   getTemplate() {
     return createSiteHeader();
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
 
-export {HeaderComponent};
-
-
+export {
+  HeaderComponent
+};
