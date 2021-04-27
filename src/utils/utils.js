@@ -1,13 +1,9 @@
 import dayjs from 'dayjs';
 import {
-  SITE_ELEMENTS_SELECTORS,
   USER_RATING,
   RENDER_POSITION
 } from '../consts';
-
-import {
-  Popup
-} from '../view/popup/popup';
+import Abstract from '../view/abstract.js';
 
 const generateNewArray = (array, item, times) => {
   for (let i = 0; i < times; i++) {
@@ -55,7 +51,6 @@ const formatDate = (date, format = 'YYYY') => {
   return dayjs(date).format(format);
 };
 
-
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
@@ -69,6 +64,19 @@ const removeBodyScroll = () => {
   body.classList.remove('hide-overflow');
 };
 
+const updateItem = (items, update) => {
+  const index = items.findIndex((item) => item.id === update.id);
+
+  if (index === -1) {
+    return items;
+  }
+
+  return [
+    ...items.slice(0, index),
+    update,
+    ...items.slice(index + 1),
+  ];
+};
 
 const renderElement = (container, element, place = RENDER_POSITION.BEFORE_END) => {
   switch (place) {
@@ -81,6 +89,24 @@ const renderElement = (container, element, place = RENDER_POSITION.BEFORE_END) =
   }
 };
 
+export const replace = (newChild, oldChild) => {
+  if (oldChild instanceof Abstract) {
+    oldChild = oldChild.getElement();
+  }
+
+  if (newChild instanceof Abstract) {
+    newChild = newChild.getElement();
+  }
+
+  const parent = oldChild.parentElement;
+
+  if (parent === null || oldChild === null || newChild === null) {
+    throw new Error('Can\'t replace unexisting elements');
+  }
+
+  parent.replaceChild(newChild, oldChild);
+};
+
 const renderTemplate = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
@@ -91,33 +117,17 @@ const createElement = (template) => {
   return newElement.firstChild;
 };
 
-const closePopup = () => {
-  const modal = document.querySelector(SITE_ELEMENTS_SELECTORS.FILM_POPUP);
-  const closeBtn = document.querySelector(SITE_ELEMENTS_SELECTORS.FILM_POPUP_CLOSE_BTN);
-  window.onkeydown = (event) => {
-    if (event.keyCode === 27) {
-      removeBodyScroll();
-      destroyElement(modal);
-    }
-  };
-  closeBtn.addEventListener('click', () => {
-    removeBodyScroll();
-    destroyElement(modal);
-  });
-};
+const remove = (component) => {
+  if (component === null) {
+    return;
+  }
 
-const openPopup = (card, films) => {
-  const renderPopup = (film) => {
-    const siteBody = document.querySelector(SITE_ELEMENTS_SELECTORS.BODY);
-    siteBody.classList.add('hide-overflow');
-    renderElement(siteBody, new Popup(film).getElement(), RENDER_POSITION.BEFORE_END);
-    closePopup();
-  };
-  const filmCardId = card.getAttribute('id');
-  const filteredElement = films.filter((item) => {
-    return item.id === filmCardId;
-  });
-  renderPopup(filteredElement[0]);
+  if (!(component instanceof Abstract)) {
+    throw new Error('Can remove only components');
+  }
+
+  component.getElement().remove();
+  component.removeElement();
 };
 
 const formatTime = (value) => {
@@ -131,7 +141,6 @@ const formatTime = (value) => {
 export {
   getRandomInt,
   countUserRating,
-  closePopup,
   render,
   destroyElement,
   randomDate,
@@ -140,8 +149,10 @@ export {
   createElement,
   formatDate,
   formatTime,
+  removeBodyScroll,
+  updateItem,
   generateRandomValue,
   getRandom,
-  openPopup,
+  remove,
   generateNewArray
 };

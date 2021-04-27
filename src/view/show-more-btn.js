@@ -5,7 +5,7 @@ const createShowMoreBtn = () => {
   Show more</button>`;
 };
 
-class ShowMoreButton extends AbstractView {
+class ShowMoreButtonView extends AbstractView {
   constructor() {
     super();
     this._callback = {};
@@ -27,5 +27,5 @@ class ShowMoreButton extends AbstractView {
 }
 
 export {
-  ShowMoreButton
+  ShowMoreButtonView
 };

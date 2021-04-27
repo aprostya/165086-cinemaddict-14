@@ -7,7 +7,7 @@ export const createSiteFooter = () => {
 </footer>`;
 };
 
-class FooterComponent extends AbstractView {
+class FooterComponentView extends AbstractView {
   constructor() {
     super();
   }
@@ -18,5 +18,5 @@ class FooterComponent extends AbstractView {
 }
 
 export {
-  FooterComponent
+  FooterComponentView
 };

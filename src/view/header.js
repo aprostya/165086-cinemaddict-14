@@ -6,7 +6,7 @@ const createSiteHeader = () => {
 </header>`;
 };
 
-class HeaderComponent extends AbstractView {
+class HeaderComponentView extends AbstractView {
   constructor() {
     super();
   }
@@ -16,5 +16,5 @@ class HeaderComponent extends AbstractView {
 }
 
 export {
-  HeaderComponent
+  HeaderComponentView
 };

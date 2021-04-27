@@ -27,10 +27,15 @@ const createSiteMenuTemplate = (filteredFilms) => {
 class MainNavigation extends AbstractView {
   constructor(films) {
     super();
-    this.films = films;
+    this._films = films;
   }
   getTemplate() {
-    return createSiteMenuTemplate(this.films);
+    return createSiteMenuTemplate(this._films);
+  }
+
+  update(film) {
+    this._films = film;
+    return createSiteMenuTemplate(this._films);
   }
 }
 

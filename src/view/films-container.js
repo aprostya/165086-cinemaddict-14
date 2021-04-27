@@ -5,7 +5,7 @@ export const createFilmsContainer = () => {
 </section>`;
 };
 
-class FilmsContainer extends AbstractView {
+class FilmsContainerView extends AbstractView {
   constructor() {
     super();
   }
@@ -15,5 +15,5 @@ class FilmsContainer extends AbstractView {
 }
 
 export {
-  FilmsContainer
+  FilmsContainerView
 };

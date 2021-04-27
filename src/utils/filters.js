@@ -11,11 +11,11 @@ const taskToFilterMap = {
     .filter((task) => task.film_info.isWatched).length,
 };
 
-export const generateFilter = (tasks) => {
+export const generateFilter = (films) => {
   return Object.entries(taskToFilterMap).map(([filterName, countTasks]) => {
     return {
       name: filterName,
-      count: countTasks(tasks),
+      count: countTasks(films),
     };
   });
 };

@@ -1,22 +1,22 @@
 import AbstractView from './abstract';
 
-export const createFooterStatistics = (totalFilms) => {
-  const showTotalFilms = totalFilms > 0 ? `${totalFilms} movies inside` : '';
+export const createFooterStatistics = (films) => {
+  const showTotalFilms = films > 0 ? `${films} movies inside` : '';
   return `<section class="footer__statistics">
   <p>${showTotalFilms}</p>
 </section>`;
 };
 
-class FooterStatistics extends AbstractView {
-  constructor(totalFilms) {
+class FooterStatisticsView extends AbstractView {
+  constructor(films) {
     super();
-    this.totalFilms = totalFilms;
+    this.films = films;
   }
   getTemplate() {
-    return createFooterStatistics(this.totalFilms);
+    return createFooterStatistics(this.films);
   }
 }
 
 export {
-  FooterStatistics
+  FooterStatisticsView
 };
