@@ -5,7 +5,7 @@ export const popupBottomContainer = (comments) => {
   <section class="film-details__comments-wrap">
     <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${comments.length}</span></h3>
     <ul class="film-details__comments-list">
-      ${comments.map((commentItem) => {return comment(commentItem);}).join('')}
+      ${comments.map((item) => {return comment(item);}).join('')}
     </ul>
     <div class="film-details__new-comment">
       <div class="film-details__add-emoji-label"></div>

@@ -8,7 +8,7 @@ const createSortFilters = () => {
   </ul>`;
 };
 
-class SortFilmsComponent extends AbstractView {
+class SortFilmsComponentView extends AbstractView {
   constructor() {
     super();
   }
@@ -18,5 +18,5 @@ class SortFilmsComponent extends AbstractView {
 }
 
 export {
-  SortFilmsComponent
+  SortFilmsComponentView
 };
