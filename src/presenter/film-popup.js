@@ -16,6 +16,7 @@ export default class FilmCardPopupPresenter {
   init(film, changeData) {
     this._film = film;
     const prevComponent = this._popUp;
+    this._component = new FilmCardPopupPresenter(this._film);
     this._changeData = changeData;
     this._popUp = null;
     this._popUp = new Popup(this._film);
@@ -27,7 +28,7 @@ export default class FilmCardPopupPresenter {
       return;
     }
     if (this._container.contains(prevComponent.getElement())) {
-      replace(this._taskComponent, prevComponent);
+      replace(this._component, prevComponent);
     }
     remove(prevComponent);
   }

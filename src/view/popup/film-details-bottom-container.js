@@ -1,6 +1,6 @@
 import {comment} from './film-details-comment';
 
-export const popupBottomContainer = (comments) => {
+export const popupBottomContainer = (comments, selectedEmoji = null) => {
   return `<div class="film-details__bottom-container">
   <section class="film-details__comments-wrap">
     <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${comments.length}</span></h3>
@@ -8,13 +8,15 @@ export const popupBottomContainer = (comments) => {
       ${comments.map((item) => {return comment(item);}).join('')}
     </ul>
     <div class="film-details__new-comment">
-      <div class="film-details__add-emoji-label"></div>
+      <div class="film-details__add-emoji-label">
+        ${selectedEmoji ? `<img src="./images/emoji/${selectedEmoji}.png" width="30" height="30" alt="emoji">` : ''}
+      </div>
       <label class="film-details__comment-label">
         <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment"></textarea>
       </label>
 
       <div class="film-details__emoji-list">
-        <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-smile" value="smile">
+        <input class="film-details__emoji-item visually-hidden" checked name="comment-emoji" type="radio" id="emoji-smile" value="smile">
         <label class="film-details__emoji-label" for="emoji-smile">
           <img src="./images/emoji/smile.png" width="30" height="30" alt="emoji">
         </label>
